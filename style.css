@@ -1,0 +1,59 @@
+body {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  margin: auto;
+  background-image: url(https://s3.envato.com/files/229417564/Letters%20Clean%20Background%20590x300.jpg);
+  background-size: cover;
+}
+
+#theWord {
+  padding-top: 40px;
+  font-size: 100px;
+  letter-spacing: 25px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+#errorField {
+  color: red;
+}
+
+label {
+  font-size: larger;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+h4 {
+  margin: 0;
+  font-size: 24px;
+}
+
+form input {
+  width: 20%;
+}
+
+h1 {
+  text-align: center;
+}
+
+form:first-child {
+  padding-top: 25px;
+  text-align: center;
+}
+
+form:first-child input {
+  margin-left: 5px;
+}
+
+form#lang input:nth-child(2) {
+  width: 90px;
+}
