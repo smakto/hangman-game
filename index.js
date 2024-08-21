@@ -25,7 +25,7 @@ let randNum = Math.floor(Math.random() * lt.length - 1) + 1;
 let wordToGuess = lt[randNum].toUpperCase();
 let hidden = "";
 let incorrectLetters = [];
-let outComeAlert = document.createElement("h1");
+let outcomeAlert = document.createElement("h1");
 let turns = 6;
 let turnCounter = document.querySelector("h4");
 
@@ -43,9 +43,8 @@ function theGame() {
   myForm.addEventListener("submit", (event) => {
     event.preventDefault();
     let inputValue = myForm.elements.letter.value;
-    let inputValueCap = inputValue.toUpperCase();
-    console.log(inputValueCap);
-    if (!/^[a-zA-Z\-_ĄąČčĘęĖėĮįŠšŲųŪūŽž]/.test(inputValueCap)) {
+    let inputValueCapitalized = inputValue.toUpperCase();
+    if (!/^[a-zA-Z\-_ĄąČčĘęĖėĮįŠšŲųŪūŽž]/.test(inputValueCapitalized)) {
       document.getElementById("errorField").innerText =
         "Prašome įvesti vieną RAIDĘ.";
       myForm.elements.letter.value = "";
@@ -53,15 +52,15 @@ function theGame() {
       document.getElementById("errorField").innerText =
         "Prašome įvesti VIENĄ raidę.";
       myForm.elements.letter.value = "";
-    } else if (wordToGuess.includes(inputValueCap)) {
+    } else if (wordToGuess.includes(inputValueCapitalized)) {
       for (let k = 0; k < wordToGuess.length; k++) {
-        if (inputValueCap === wordToGuess[k]) {
-          hiddenArray.splice(k, 1, inputValueCap);
+        if (inputValueCapitalized === wordToGuess[k]) {
+          hiddenArray.splice(k, 1, inputValueCapitalized);
         }
       }
     } else {
-      if (!incorrectLetters.includes(inputValueCap)) {
-        incorrectLetters.push(inputValueCap);
+      if (!incorrectLetters.includes(inputValueCapitalized)) {
+        incorrectLetters.push(inputValueCapitalized);
         turns = turns - 1;
       }
       document.querySelector(
@@ -74,12 +73,12 @@ function theGame() {
       turnCounter.innerText = `Žaidimas baigėsi.`;
       turnCounter.style.color = "red";
       myForm.elements.letter.disabled = true;
-      document.body.appendChild(outComeAlert);
-      outComeAlert.innerText = `Neatspėjote "${wordToGuess}". Jūsų laikas ${
+      document.body.appendChild(outcomeAlert);
+      outcomeAlert.innerText = `Neatspėjote "${wordToGuess}". Jūsų laikas ${
         seconds - 1
       } sek.`;
 
-      outComeAlert.style.color = "red";
+      outcomeAlert.style.color = "red";
       clearInterval(setTime);
     }
 
@@ -87,11 +86,11 @@ function theGame() {
     wordDiv.innerText = result;
 
     if (!result.includes("_")) {
-      document.body.appendChild(outComeAlert);
-      outComeAlert.innerText = `Valio! Atspėjote "${wordToGuess}". Jūsų laikas ${
+      document.body.appendChild(outcomeAlert);
+      outcomeAlert.innerText = `Valio! Atspėjote "${wordToGuess}". Jūsų laikas ${
         seconds - 1
       } sek.`;
-      outComeAlert.style.color = "green";
+      outcomeAlert.style.color = "green";
       clearInterval(setTime);
     }
   });
@@ -103,7 +102,7 @@ function theGame() {
 
   let resetButton = document.querySelector("input[type=button");
 
-  resetButton.addEventListener("click", (event) => {
+  resetButton.addEventListener("click", () => {
     location.reload();
   });
 }
@@ -127,13 +126,10 @@ formLangSelect.addEventListener(
 
     if (theLanguage === "lt") {
       theGame();
-      console.log(wordToGuess);
     } else if (document.forms[0].elements.langselect.value !== "lt") {
       const result = await langPack(theLanguage);
       wordToGuess = result[0].toUpperCase();
-      theGame(); /// startGame - aiškesnius pavadinimus.
-      console.log(wordToGuess);
-      console.log(hidden);
+      theGame();
     }
     formLangSelect.style.visibility = "hidden";
     timeDiv.style.visibility = "visible";
@@ -147,7 +143,6 @@ formLangSelect.addEventListener(
   { once: true }
 );
 
-/// wordPicker - aiškesnius pavadinimus.
 let langPack = async function (lang) {
   try {
     let languages = await fetch(
@@ -156,6 +151,6 @@ let langPack = async function (lang) {
     languages = await languages.json();
     return languages;
   } catch (e) {
-    console.log("langPack", e);
+    console.error("langPack", e);
   }
 };
